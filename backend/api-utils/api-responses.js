@@ -35,13 +35,10 @@ const api_errors = {
 }
 
 const authenticateJWT = (req, res, next) =>{
-    const authHeader = req.headers.authorization;
-
-    if(authHeader){
-        const token = authHeader.split(' ')[1];
+    const token = req.headers.authorization;
+    if(token){
         jwt.verify(token, jwtSecret, (err, user)=>{
             if(err) return sendErr(req, res, 403)
-
             req.user = user
             next();
         })
@@ -76,6 +73,7 @@ function send(res, code){
 }
 
 module.exports = {
+    authenticateJWT:authenticateJWT,
     sendErrData: sendErrData,
     sendErr: sendErr,
     sendData: sendData,

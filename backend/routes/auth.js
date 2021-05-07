@@ -2,7 +2,6 @@ const express = require("express")
 const router = express.Router();
 const db = require("../db/db-connect").getDB();
 const collection = db.collection("Users");
-const ObjectId = require("mongodb").ObjectID
 const jwt = require('jsonwebtoken')
 
 const requests = require("./requests/requests");
@@ -35,10 +34,10 @@ router.post("/login", (req, res)=>{
     } else {
         let entry = req.body;
         const { error } = requests.login.validate(entry)
-        if(error) return api_res.sendErrData(req, res, 400, error)
+        if(error) return api_res.sendErrData(req, res, 400)
 
         collection.findOne({"username":entry.username}, (err, user)=>{
-            if(err) return api_res.sendErrData(req, res, 500, err)
+            if(err) return api_res.sendErrData(req, res, 500)
             var { passkey } = crypto.passphrase_to_key(entry.password, user.encryptedKey.salt)
             entry.password = crypto.hash(entry.password)
             if(user.password == entry.password){
@@ -63,9 +62,7 @@ router.post("/login", (req, res)=>{
 router.post("/register", (req, res)=>{
     let entry = req.body;
     const { error } = requests.register.validate(entry)
-    if (error) return api_res.sendErrData(req, res, 400, error)
-    
-    
+    if (error) return api_res.sendErrData(req, res, 400)
 
     var userkey = crypto.genKey().toString('hex')
     var { passkey, salt } = crypto.passphrase_to_key(entry.password, 0)
@@ -81,7 +78,7 @@ router.post("/register", (req, res)=>{
     entry.passes = []
 
     collection.insertOne(entry, (err, result)=>{
-        if(err) api_res.sendErrData(req, res, 500, err)
+        if(err) api_res.sendErrData(req, res, 500)
         else{
             id = result.ops[0]._id
 
