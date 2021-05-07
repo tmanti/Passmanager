@@ -40,6 +40,9 @@ mongodb.connectToServer((response, err)=>{
     const pass = require("./routes/pass")
     app.use("/api/pass", pass)
 
+    const auth = require("./routes/auth")
+    app.use("/api/auth", auth)
+
     const port = process.env.PORT || 5000;
     app.listen(port, ()=>{
         console.log(`Server running on port ${port} !`)

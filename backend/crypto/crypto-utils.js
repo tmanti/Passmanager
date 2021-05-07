@@ -2,18 +2,28 @@ const crypto = require("crypto");
 
 var algorithm = "aes-256-cbc";
 
-function passphrase_to_key(passphrase){
-    // it is not necessary that this be private, just random on a per-user basis
-    var salt = crypto.randomBytes(32);
+function hash(password){
+    let hash = crypto.createHash("sha256")
+    let pswdhash = hash.update(password).digest("hex")
+    return pswdhash
+}
 
+function passphrase_to_key(passphrase, salt){
+    // it is not necessary that this be private, just random on a per-user basis
+    if(salt == 0){
+        salt = crypto.randomBytes(32).toString('hex');
+    }
+    
     // you want this to slow down an attacker, but not yourself or a user
     // if you use mobile devices or hobby hardware, keep it well under 10,000
     // it is not necessary that this be private
     var iterations = 137;
     var keyByteLength = 32; // desired length for an AES key
 
-    var key = crypto.pbkdf2Sync(passphrase, salt, iterations, keyByteLength, 'sha512')
-    return key.toString('hex')
+    var key = crypto.pbkdf2Sync(passphrase, Buffer.from(salt, 'hex'), iterations, keyByteLength, 'sha512')
+    return {
+        passkey: key.toString('hex'), salt:salt.toString('hex')
+    }
 }
 
 function encrypt(key, phrase){
@@ -42,5 +52,7 @@ function genKey(){
 module.exports = {
     passphrase_to_key: passphrase_to_key,
     encrypt: encrypt,
-    decrypt: decrypt
+    decrypt: decrypt,
+    genKey: genKey,
+    hash: hash
 }

@@ -18,6 +18,11 @@ var db_export = {
             err.errmsg
           );
         db = client.db(dbName);
+        db.collection("Users").createIndex({email:1, username:1}, {unique:true}, (err, result)=>{
+          if(err) {
+            console.log(err);
+          } 
+        })
         callback("Connected successfully to database server", undefined);
       }
     );
