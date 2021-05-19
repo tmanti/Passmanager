@@ -35,7 +35,15 @@ const api_errors = {
 }
 
 const authenticateJWT = (req, res, next) =>{
-    const token = req.headers.authorization;
+    const authHeader = req.headers['authorization'];
+    var a = authHeader.split(' ');
+
+    if(a.length == 2){
+        const token = a[1];
+    } else {
+        const token = authHeader;
+    }
+
     if(token){
         jwt.verify(token, jwtSecret, (err, user)=>{
             if(err) return sendErr(req, res, 403)

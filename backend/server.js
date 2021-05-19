@@ -1,5 +1,6 @@
 const express = require("express");
 const mongodb = require("./db/db-connect");
+const cors = require('cors');
 require("dotenv").config();
 
 /*const cryptoa = require("crypto");
@@ -27,6 +28,7 @@ app.use((req, res, next) => {
   });
 
 app.use(express.json());
+app.use(cors())
 
 mongodb.connectToServer((response, err)=>{
     if(err){
