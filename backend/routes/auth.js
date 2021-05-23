@@ -24,7 +24,7 @@ function create_token(uuid, user_key){
 // @access Public
 router.post("/login", (req, res)=>{
     const token = req.headers.authorization;
-    if(token){
+    if(token && token != undefined){
         jwt.verify(token, jwtSecret, (err, user)=>{
             if(err) return api_res.sendErr(req, res, 401)
             req.user = user
