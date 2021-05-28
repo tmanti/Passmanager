@@ -23,7 +23,7 @@ const Navbar = ({linkCol}:{ linkCol: string }) =>{//https://github.com/maticzav/
     if(process.browser && cookies.token){ //&& localStorage.getItem('master_key') != undefined){
         obj1 =
         <div className = { styles.navbarLinkRightContainer }>
-            <h1 className = { styles.navbarLink } style = {{ color: linkCol }} onClick = { () => router.push('/user') }> 
+            <h1 className = { styles.navbarLink } style = {{ color: linkCol }} onClick = { () => router.push('/dashboard') }> 
                 DASHBOARD
             </h1>
         </div>
