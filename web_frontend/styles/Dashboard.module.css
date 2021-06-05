@@ -219,3 +219,48 @@
     color: red;
     font-family: var(--font);
 }
+
+.inputRoot {
+    color: 'inherit',
+}
+
+.appBar {
+    width: calc(100%-var(--drawerWidth));
+    margin-left: var(--drawerWidth)
+}
+
+.search {
+    padding-left: 50px;
+    position: relative;
+    border-radius: 5px;
+    background-color: fade(white, 0.15);
+    margin-left: 0;
+    width: 100%;
+}
+
+.search:hover {
+    background-color: fade(white, 0.25);
+}
+
+.searchIcon {
+    padding-left: 2;
+    padding-right: 2;
+    height: '100%';
+    position: 'absolute';
+    pointer-events: 'none';
+    display: 'flex';
+    align-items: 'center';
+    justify-content: 'center';
+}
+
+.inputInput {
+    padding-left: 10px;
+}
+
+.drawer{
+    width:var(--drawerWidth)
+}
+
+.drawerPaper{
+    width: var(--drawerWidth);
+}

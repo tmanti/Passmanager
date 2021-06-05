@@ -32,7 +32,8 @@ function login(){
                 else{
                     setCookie(null, 'token', data.token, {
                         maxAge: 30*24*60*60,
-                        path:'/'
+                        path:'/',
+                        sameSite:true
                     })
                     router.push('/dashboard');
                 }

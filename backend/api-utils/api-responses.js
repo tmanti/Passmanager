@@ -38,10 +38,12 @@ const authenticateJWT = (req, res, next) =>{
     const authHeader = req.headers['authorization'];
     var a = authHeader.split(' ');
 
+    var token;
+
     if(a.length == 2){
-        const token = a[1];
+        token = a[1];
     } else {
-        const token = authHeader;
+        token = authHeader;
     }
 
     if(token){
