@@ -31,7 +31,7 @@ function Register() {
             }, (data)=>{
                 console.log(data)
 
-                if(data['status'] != 'ok') setErrorMessage('Register Failed failed');
+                if(data['result'] != 'ok') setErrorMessage('Register Failed');
                 else{
                     setCookie(null, 'token', data.token, {
                         maxAge: 30*24*60*60,

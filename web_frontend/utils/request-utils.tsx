@@ -1,4 +1,4 @@
-const api_url = "https://pass.tmanti.dev/api";
+const api_url = "http://localhost:3001/api";
 
 function postreq(url, token, body, callback){
     request("POST", url, token, body, callback);
@@ -24,7 +24,11 @@ function request(method, url, token, body, callback){
         method: method,
         headers:headers,
         body: JSON.stringify(body)
-    }).then((ret)=> ret.json()).then(callback);
+    }).then((ret)=> ret.json()).then(callback).catch(function(error) {
+        console.log('There has been a problem with your fetch operation: ' + error.message);
+         // ADD THIS THROW error
+          throw error;
+        });
 }
 
 function getreq(url, token, callback){
@@ -38,7 +42,11 @@ function getreq(url, token, callback){
     fetch(api_url + url, {
         method: "GET",
         headers:headers,
-    }).then((ret)=> ret.json()).then(callback);
+    }).then((ret)=> ret.json()).then(callback).catch(function(error) {
+        console.log('There has been a problem with your fetch operation: ' + error.message);
+         // ADD THIS THROW error
+          throw error;
+        });
 }
 
 export { getreq, postreq, delreq, putreq, request };

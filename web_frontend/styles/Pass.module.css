@@ -1,4 +1,4 @@
-.deleteEntry{
+.viewEntry{
     position: relative;
     float: right;
     cursor: pointer;
@@ -6,13 +6,22 @@
     transition: 0.3s;
 }
 
-.deleteEntry:hover{
+.passEntry{
+    position: fixed;
+    float: right;
+    left:60%;
+    width:5%;
+    font-size: 15px;
+    font-family: var(--font);
+}
+
+.viewEntry:hover{
     position: relative;
     cursor: pointer;
     height: 40px;
     background: rgba(0,0,0,0.1);
     transition: 0.3s;
-    color:red;
+    color:blue;
 }
 
 .fileEntryContainer {

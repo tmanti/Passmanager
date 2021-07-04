@@ -103,7 +103,7 @@
 .popupInnerContainer {
     position: fixed;
     width: 600px;
-    height: 220px;
+    height: 60%;
     left: 50%;
     top: 40%;
     border-radius: 5px;
@@ -132,6 +132,17 @@
     font-family: var(--font);
 }
 
+.popupEntryHeaderPassword {
+    position: absolute;
+    /* height: 10%; */
+    top: 52%;
+    /* background: rgba(0,0,0,0.5); */
+    left: 5%;
+    font-size: 15px;
+    color: rgb(167, 167, 167);
+    font-family: var(--font);
+}
+
 .popupEntryInput {
     border: none;
     outline: none;
@@ -150,10 +161,28 @@
     font-family: var(--font);
 }
 
+.popupEntryInputPassword {
+    border: none;
+    outline: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    position: absolute;
+    height: 10%;
+    top: 68%;
+    /* background: rgba(0,0,0,0.5); */
+    left: 5%;
+    width: 90%;
+    padding: 3%;
+    padding-left: 2%;
+    padding-right: 2%;
+    font-size: 15px;
+    font-family: var(--font);
+}
+
 .popupBottom {
     position: absolute;
     width: 100%;
-    height: 23%;
+    height: 15%;
     bottom: 0;
     background: rgba(206, 206, 206, 0.5);
     border-top: 1px solid rgb(121, 121, 121);
@@ -226,11 +255,12 @@
 
 .appBar {
     width: calc(100%-var(--drawerWidth));
-    margin-left: var(--drawerWidth)
+    margin-left: var(--drawerWidth);
+    position:'fixed';
 }
 
 .search {
-    padding-left: 50px;
+    padding-left: var(--drawerWidth);
     position: relative;
     border-radius: 5px;
     background-color: fade(white, 0.15);

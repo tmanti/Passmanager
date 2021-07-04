@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import DeleteIcon from '@material-ui/icons/Delete';
-import styles from '../styles/Directory.module.css';
+import styles from '../styles/Pass.module.css';
 import { IconButton } from '@material-ui/core';
 
 import { getreq, postreq, delreq } from '../utils/request-utils'
@@ -19,21 +19,27 @@ interface PassProps{
 
 export default function Pass({source, token, id, isFirst, isLast, update}:PassProps){
 
-    const [pass, setPass] = useState(null);
+    let [pass, setPass] = useState(null);
+    let deleted = false;
+    let viewed = false;
 
     function viewPass(){
-        getreq("/pass/"+id, token, (data)=>{
-            console.log("GOT PASS");
-            if(data.result == "ko"){
-                console.log("shid")
-            } else {
-                console.log(data)
-            }
-        })
+        viewed = true;
+        if(!deleted && viewed){
+            getreq("/pass/"+id, token, (data)=>{
+                if(data.result == "ko"){
+                    console.log("shid")
+                } else {
+                    setPass(data.password)
+                }
+            })
+        }
     }
 
     function deletePass(){
-        delreq("/pass/"+id, token, {}, ()=>{
+        deleted = true;
+        setPass(null)
+        delreq("/pass/"+id, token, {}, (data)=>{
             update()
         })
     }
@@ -48,17 +54,17 @@ export default function Pass({source, token, id, isFirst, isLast, update}:PassPr
     
     return(
         <div className = { styles.fileEntryContainerNoHover } style = {{borderBottom: isLast?'1px solid #00000033':'' }} >
-            <IconButton className={styles.deleteEntry} disableRipple={true} disableFocusRipple={true} disableTouchRipple={true} onClick={()=>{
-                deletePass()
-            }}>
-                <DeleteIcon />
-            </IconButton>
             <div className={styles.fileEntryContainer} onClick = { viewPass } >
-                <h1 className = { styles.fileEntryComponent } style = {{ width: '60%' }}> { source } </h1>
+            <h1 className = { styles.fileEntryComponent } style = {{ width: '60%' }}> { source } </h1>
+                <IconButton className={styles.viewEntry} disableRipple={true} disableFocusRipple={true} disableTouchRipple={true} onClick={()=>{
+                        deletePass()
+                    }}>
+                    <DeleteIcon />
+                </IconButton>
                 {
                     pass?
-                    <h1 className = { styles.fileEntryComponent } style = {{ width:'40%'}}> {pass} </h1>
-                    :<IconButton className={styles.deleteEntry} disableRipple={true} disableFocusRipple={true} disableTouchRipple={true} onClick={()=>{
+                    <h1 className = { styles.passEntry } style = {{ width:'30%'}}> {pass} </h1>
+                    :<IconButton disabled={viewed} className={styles.viewEntry} disableRipple={true} disableFocusRipple={true} disableTouchRipple={true} onClick={()=>{
                         viewPass()
                     }}>
                         <VisibilityIcon/>

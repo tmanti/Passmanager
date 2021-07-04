@@ -38,6 +38,7 @@ router.post("/login", (req, res)=>{
 
         collection.findOne({"username":entry.username}, (err, user)=>{
             if(err) return api_res.sendErrData(req, res, 500)
+            if(!user) return api_res.sendErrData(req, res, 404)
             var { passkey } = crypto.passphrase_to_key(entry.password, user.encryptedKey.salt)
             entry.password = crypto.hash(entry.password)
             if(user.password == entry.password){

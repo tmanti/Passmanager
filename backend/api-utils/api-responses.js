@@ -25,6 +25,13 @@ const api_errors = {
             detail:"forbidden request for {0}"
         }
     },
+    404:{
+        result:"ko",
+        error:{
+            title:"http_not_found",
+            detail:"resource not found for {0}"
+        }
+    },
     500:{
         result:"ko",
         error:{
@@ -36,24 +43,27 @@ const api_errors = {
 
 const authenticateJWT = (req, res, next) =>{
     const authHeader = req.headers['authorization'];
-    var a = authHeader.split(' ');
+    if(!authHeader) return sendErr(req, res, 401)
+    else{
+        var a = authHeader.split(' ');
 
-    var token;
+        var token;
 
-    if(a.length == 2){
-        token = a[1];
-    } else {
-        token = authHeader;
-    }
+        if(a.length == 2){
+            token = a[1];
+        } else {
+            token = authHeader;
+        }
 
-    if(token){
-        jwt.verify(token, jwtSecret, (err, user)=>{
-            if(err) return sendErr(req, res, 403)
-            req.user = user
-            next();
-        })
-    } else {
-        sendErr(req, res, 401)
+        if(token){
+            jwt.verify(token, jwtSecret, (err, user)=>{
+                if(err) return sendErr(req, res, 403)
+                req.user = user
+                next();
+            })
+        } else {
+            return sendErr(req, res, 401)
+        }
     }
 }
 
