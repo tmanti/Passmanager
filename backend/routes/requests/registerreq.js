@@ -8,7 +8,6 @@ const schema = Joi.object({
         .alphanum()
         .required(),
     password: Joi.string()
-        .alphanum()
         .required()
 });
 
