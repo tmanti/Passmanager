@@ -32,6 +32,9 @@ export default function Dashboard() {
   const token  = cookies.token;
 
   const [passes, setPasses] = useState([]);
+
+  let [showCreatePopup, setCreatePopup] = useState(false);
+  let [popupErrorMessage, setPopupErrorMessage] = useState('');
   
   if(!token && process.browser){
     router.push("/login")
@@ -46,54 +49,54 @@ export default function Dashboard() {
     }
   })
 
-  return (
-      <div>
-          <Header title="Dashboard"/>
-          <div style={{display: 'flex'}}>
-              <CssBaseline />
-              <AppBar position="static" className={styles.appBar}>
-                  <Toolbar>
-                      <Typography variant="h6">
-                          Passmanager
-                      </Typography>
-                      <div className={styles.search}>
-                          <div className={styles.searchIcon}>
-                              <SearchIcon />
-                          </div>
-                          <InputBase
-                              placeholder="Search…"
-                              classes={{
+    return (
+    <div>
+        <Header title="Dashboard"/>
+        <div style={{display: 'flex'}}>
+            <CssBaseline />
+            <AppBar position="static" className={styles.appBar}>
+                <Toolbar>
+                    <Typography variant="h6">
+                        Passmanager
+                    </Typography>
+                    <div className={styles.search}>
+                        <div className={styles.searchIcon}>
+                            <SearchIcon />
+                        </div>
+                        <InputBase
+                            placeholder="Search…"
+                            classes={{
                                 root: styles.inputRoot,
                                 input: styles.inputInput,
-                              }}
-                              inputProps={{ 'aria-label': 'search' }}
-                          />
-                      </div>
-                  </Toolbar>
-              </AppBar>
-              <Drawer
-                  className={styles.drawer}
-                  variant="permanent"
-                  classes={{
-                  paper: styles.drawerPaper,
-                  }}
-                  anchor="left"
-              >
-              <Divider />
-                  <List>
-                      {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                          <ListItem button key={text}>
-                          <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                          <ListItemText primary={text} />
-                      </ListItem>
-                  ))}
-                  </List>
-              <Divider />
-              </Drawer>
-          </div>
-          <div className = {styles.userBackground}>
+                            }}
+                            inputProps={{ 'aria-label': 'search' }}
+                        />
+                    </div>
+                </Toolbar>
+            </AppBar>
+            <Drawer
+                className={styles.drawer}
+                variant="permanent"
+                classes={{
+                    paper: styles.drawerPaper,
+                }}
+                anchor="left"
+            >
+            <Divider />
+            <List>
+                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                    <ListItem button key={text}>
+                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                        <ListItemText primary={text} />
+                    </ListItem>
+                ))}
+                </List>
+            <Divider />
+            </Drawer>
+        </div>
+        <div className = {styles.userBackground}>
 
-          </div>
-      </div>
+        </div>
+    </div>
   );
 }

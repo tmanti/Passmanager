@@ -71,7 +71,7 @@ function sendErrData(req, res, code, data){
 }
 
 function sendData(res, code, data){
-    data.status = "ok"
+    data.result = "ok"
     res.status(code).json(data)
 }
 
