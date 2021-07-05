@@ -28,7 +28,7 @@ function login(){
             }, (data)=>{
                 console.log(data)
 
-                if(data['status'] != 'ok') setErrorMessage('Login failed');
+                if(data['result'] != 'ok') setErrorMessage('Login failed');
                 else{
                     setCookie(null, 'token', data.token, {
                         maxAge: 30*24*60*60,
