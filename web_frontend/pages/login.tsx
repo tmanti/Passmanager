@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import Navbar from '../components/Navbar';
@@ -47,8 +47,11 @@ function login(){
         }
     }
 
-    if(process.browser && cookies.token)
-        router.push('/dashboard');
+    useEffect(()=>{
+        if(cookies.token){
+            router.push('/dashboard');
+        }
+    })  
 
     return (
         <div>
