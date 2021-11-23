@@ -98,17 +98,18 @@ export default function Dashboard(){
                             return <Pass key={element.id} source={element.source} token={token} id={element.id} isFirst={false} isLast={index==passes.length-1} update={updateDash}/>
                         })
                     } 
+                    {
+                !showCreatePopup?
+                    <Fab sx={{ display:'fixed' }} color="primary" className={styles.addButton} onClick={()=>{
+                        setCreatePopup(true)
+                    }}>
+                        <AddIcon/>
+                    </Fab>
+                    :null
+                }
                 </div>
             </div>
-            {
-                !showCreatePopup?
-                <Fab color="primary" className={styles.addButton} onClick={()=>{
-                    setCreatePopup(true)
-                }}>
-                   <AddIcon/>
-                </Fab>
-                :null
-            }
+
             {
                 showCreatePopup?
                 <div className={styles.popupContainer}>

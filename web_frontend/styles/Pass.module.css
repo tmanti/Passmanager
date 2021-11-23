@@ -7,7 +7,7 @@
 }
 
 .passEntry{
-    position: fixed;
+    position: absolute;
     float: right;
     left:60%;
     width:5%;
