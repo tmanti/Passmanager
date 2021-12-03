@@ -31,15 +31,7 @@ export default function Dashboard(){
             if(firstTime){
                 setFirstTime(false);
                 try{
-                    getreq("/pass", token, (data)=>{
-                        console.log("GOT PASSES");
-                        if(data.status == "ko"){
-                            console.log("oh no")
-                        } else {
-                            console.log(data.results)
-                            setPasses(data.results)
-                        }
-                    })
+                    updateDash()
                 } catch(e){
                     console.log(e)
                 }
@@ -50,10 +42,12 @@ export default function Dashboard(){
     function updateDash(){
         getreq("/pass", token, (data)=>{
             console.log("GOT PASSES");
-            if(data.status == "ko"){
-                console.log("oh no")
+            if(data.result == "ko"){
+                if(data.status == 401){
+                    destroyCookie(null, "token");
+                    router.push("/login")
+                }
             } else {
-                console.log(data.results)
                 setPasses(data.results)
             }
         })
