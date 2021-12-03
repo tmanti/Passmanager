@@ -100,7 +100,7 @@ export default function Dashboard(){
                     } 
                     {
                 !showCreatePopup?
-                    <Fab sx={{ display:'fixed' }} color="primary" className={styles.addButton} onClick={()=>{
+                    <Fab style={{position:'fixed'}} sx={{ display:'fixed' }} color="primary" className={styles.addButton} onClick={()=>{
                         setCreatePopup(true)
                     }}>
                         <AddIcon/>
