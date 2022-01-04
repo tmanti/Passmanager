@@ -6,6 +6,8 @@ this is the webfrontend of the password manager, it allows the user to add and r
 
 ## Getting Started
 
+first bit of setup is to point the request utils to your backend. This can be done by changing the value of the string api_url in request-utils.tsx.
+
 Make sure to install all packages/dependancies then you can run the development enviorment if the backend server is setup.
 
 ```bash
