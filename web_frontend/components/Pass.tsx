@@ -63,7 +63,7 @@ export default function Pass({source, token, id, isFirst, isLast, update}:PassPr
                 </IconButton>
                 {
                     pass?
-                    <h1 className = { styles.passEntry } style = {{ width:'30%'}}> {pass} </h1>
+                    <h1 className = { styles.passEntry }> {pass} </h1>
                     :<IconButton disabled={viewed} className={styles.viewEntry} disableRipple={true} disableFocusRipple={true} disableTouchRipple={true} onClick={()=>{
                         viewPass()
                     }}>

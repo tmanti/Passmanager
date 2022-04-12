@@ -1,4 +1,4 @@
-const api_url = "http://localhost:3001/api"//"https://pass.tmanti.dev/api";
+const api_url = "https://pass.tmanti.dev/api";//"http://localhost:3001/api"//
 
 function postreq(url, token, body, callback){
     request("POST", url, token, body, callback);
