@@ -1,4 +1,4 @@
-const api_url = "https://pass.tmanti.dev/api";//"http://localhost:3001/api"//
+const api_url = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 function postreq(url, token, body, callback){
     request("POST", url, token, body, callback);
@@ -13,6 +13,7 @@ function putreq(url, token, body, callback){
 }
 
 function request(method, url, token, body, callback){
+    console.log(api_url);
     let headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
