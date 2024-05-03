@@ -71,7 +71,6 @@ const authenticateJWT = (req, res, next) =>{
         if(token){
             jwt.verify(token, jwtSecret, (err, user)=>{
                 if(err){
-                    //console.log(err)
                     sendErr(req, res, 401, "token_expired")
                     return
                 } 
@@ -93,8 +92,9 @@ function sendErr(req, res, code, description){
     res.status(code).json(resp)
 }
 
-function sendErrData(req, res, code, data){
-    var resp = api_errors[code]
+function sendErrData(req, res, code, data, description){
+    let err_variant = description || "default"
+    let resp = api_errors[code][err_variant]
     resp.error.detail = resp.error.detail.replace("{0}", req.method + " " + req.originalUrl)
     resp.error.data = data
     resp.status = code
