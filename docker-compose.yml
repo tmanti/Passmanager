@@ -1,0 +1,16 @@
+services:
+  backend:
+    container_name: backend
+    build: ./backend
+    ports:
+      - 3001:3001
+    depends_on:
+      - mongo
+
+  mongo:
+    container_name: db
+    image: mongo
+    volumes:
+      - /var/lib/mongodb:/data/db
+    ports:
+      - 27017:27017
