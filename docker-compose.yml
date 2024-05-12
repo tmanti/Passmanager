@@ -1,4 +1,12 @@
 services:
+  ui:
+    container_name: ui
+    build: ./web_frontend
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+
   backend:
     container_name: backend
     build: ./backend
