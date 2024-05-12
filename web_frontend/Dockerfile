@@ -15,17 +15,19 @@ COPY . .
 
 RUN npm run build
 
-FROM base as export
+FROM base as run
 WORKDIR /app
 ENV NODE_ENV=production
 
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
-COPY --from=builder /app/public ./public
+COPY --from=build /app/public ./public
 
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+RUN mkdir .next
+RUN chown nextjs:nodejs .next
+
+COPY --from=build --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
 
@@ -33,4 +35,4 @@ EXPOSE 3000
 
 ENV PORT 3000
 
-CMD HOSTNAME=localhost node server.js
+CMD HOSTNAME="0.0.0.0" node server.js
