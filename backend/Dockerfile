@@ -1,14 +1,14 @@
-FROM node:20 as base
+FROM node:20-alpine as base
 
 EXPOSE 3001
 
-COPY src/ /app/
-COPY package.json /app/
-COPY package-lock.json /app/
-COPY .env /app/
-
 WORKDIR /app
+
+COPY package.json package-lock.json ./
 RUN npm i npm@latest -g
 RUN npm ci
+
+COPY .env ./
+COPY src/ ./
 
 ENTRYPOINT ["node", "server.js"]
