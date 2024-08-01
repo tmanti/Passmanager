@@ -2,16 +2,16 @@ services:
   ui:
     container_name: ui
     build: ./web_frontend
-    ports:
-      - 3000:3000
+    expose: # CURRENTLY CONFIGURED FOR PRODUCTION NGINX ENVIRONMENT -> CHANGE TO `port: - 3000:3000` for localhost without docker copntainerization
+      - 3000
     depends_on:
       - backend
 
   backend:
     container_name: backend
     build: ./backend
-    ports:
-      - 3001:3001
+    expose: # CURRENTLY CONFIGURED FOR PRODUCTION NGINX ENVIRONMENT -> CHANGE TO `port: - 3001:3001` for localhost without docker copntainerization
+      - 3001
     depends_on:
       - mongo
 
@@ -20,8 +20,8 @@ services:
     image: mongo
     volumes:
       - mongo-volume:/data/db
-    ports:
-      - 27017:27017
+    expose:
+      - 27017
   
 volumes:
   mongo-volume:
